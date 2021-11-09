@@ -1,0 +1,34 @@
+<div class="weather">
+  <form [formGroup]="weatherForm" (ngSubmit)="onSubmit($event)">
+    <input 
+      type="text" 
+      formControlName="city"
+      placeholder="Search city"
+    >
+    <button class="weather__btn">Search</button>
+  </form>
+
+  <div *ngIf="data" class="weather__info">
+    <div class="weather__city-title">{{data.name}}</div>
+
+    <div>{{data.weather[0].icon}}</div>
+
+    <div class="weather__short">
+      <b>Feels like {{temp}}°C. </b>
+      <b>{{description}}. </b>
+    </div>
+    
+    <div class="weather__detail">
+      <div>
+        <div>{{data.wind.speed}}m/s {{windDerection}}</div>
+        <div>Humidity: {{data.main.humidity}}%</div>
+        <div>Visibility: {{visibility}}km</div>
+      </div>
+
+      <div>
+        <div>{{data.main.pressure}}hPa</div>
+        <div>Dew point: {{temp_min}}°C</div>
+      </div>
+    </div>
+  </div>
+</div>
