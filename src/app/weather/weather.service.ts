@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 export class WeatherService {
   weatherUrl = 'http://api.openweathermap.org/data/2.5/weather';
   key = 'd4e19a8d70d9803f85089ec38cd99717';
-  measurement = 'metric';
-  isMetric = false;
 
   constructor(private http: HttpClient) { }
 
-  getWeather(city: string): Observable<any> {
-    const url = `${this.weatherUrl}?q=${city}&units=${this.measurement}&appid=${this.key}`;
-    
+  getWeather(city: string, unit: string): Observable<any> {
+    const currentUnit = unit === 'celsius' ? 'metric' : 'imperial';
+    const url = `${this.weatherUrl}?q=${city}&units=${currentUnit}&appid=${this.key}`;
+    console.log('unit', unit);
+
     return this.http.get(url);
   }
 }

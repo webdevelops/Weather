@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
+import { first, take } from 'rxjs/operators';
 
 import { WeatherService } from './weather.service';
 
@@ -10,7 +11,7 @@ import { WeatherService } from './weather.service';
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.scss']
 })
-export class WeatherComponent implements OnInit, OnDestroy {
+export class WeatherComponent implements OnInit {
   weatherForm!: FormGroup;
   weatherSubscribtiob?: Subscription;
   data: any;
@@ -19,6 +20,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
   visibility = '';
   temp = 0;
   temp_min = 0;
+  isCelsius = true;
+  currentData = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -27,24 +30,24 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
+    this.getData(this.weatherForm.get('city')?.value, 'celsius');
+    // this.getData(this.weatherForm.controls['city'].value);
   }
 
   initForm(): void {
     this.weatherForm = this.fb.group({
-      city: ['', [Validators.required, Validators.minLength(3)]]
+      city: ['London', [Validators.required, Validators.minLength(3)]]
     });
   }
 
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    const city = this.weatherForm.controls['city'].value;
-
-    this.weatherSubscribtiob = this.weatherService
-      .getWeather(city)
+  getData(city: string, unit: string): void {
+    this.weatherService
+      .getWeather(city, unit)
+      .pipe(first())
       .subscribe(data => {
         this.data = data;
         this.transformData(data);
-        // console.log('data', data);
+        console.log('data', data);
       });
   }
 
@@ -86,7 +89,14 @@ export class WeatherComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.weatherSubscribtiob?.unsubscribe();
+  setMeasurement(unit: string): void {
+    this.isCelsius = unit === 'celsius';
+    this.getData(this.weatherForm.get('city')?.value, unit);
+    // console.log('setM');
+  }
+
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    this.getData(this.weatherForm.controls['city'].value, 'celsius');
   }
  }

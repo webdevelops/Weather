@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.fa-github {
+  color: #fff;
+  font-size: 30px;
+  margin-right: 20px;
+  animation: increase 2s infinite ;
+}
+
+@keyframes increase {
+  50% {
+    transform: scale(1.2)
+  }
+}
