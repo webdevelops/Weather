@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'openWeather';
-  isDay = false;
+  isDay = true;
 
   toggleDays(): void {
     this.isDay = !this.isDay;
