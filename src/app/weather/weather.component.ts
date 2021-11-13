@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Subscription } from 'rxjs';
-import { first, take } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { WeatherService } from './weather.service';
 
@@ -13,7 +12,6 @@ import { WeatherService } from './weather.service';
 })
 export class WeatherComponent implements OnInit {
   weatherForm!: FormGroup;
-  weatherSubscribtiob?: Subscription;
   data: any;
   description = '';
   windDerection = '';
@@ -31,7 +29,6 @@ export class WeatherComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getData(this.weatherForm.get('city')?.value, 'celsius');
-    // this.getData(this.weatherForm.controls['city'].value);
   }
 
   initForm(): void {
@@ -46,8 +43,8 @@ export class WeatherComponent implements OnInit {
       .pipe(first())
       .subscribe(data => {
         this.data = data;
+        // console.log('data', data);
         this.transformData(data);
-        console.log('data', data);
       });
   }
 
@@ -92,7 +89,6 @@ export class WeatherComponent implements OnInit {
   setMeasurement(unit: string): void {
     this.isCelsius = unit === 'celsius';
     this.getData(this.weatherForm.get('city')?.value, unit);
-    // console.log('setM');
   }
 
   onSubmit(event: Event): void {

@@ -1,0 +1,168 @@
+.weather {
+  &__tabs {
+    display: flex;
+  }
+
+  &__info {
+    display: flex;
+    background: #fff;
+  }
+}
+
+.active {
+  position: relative;
+  bottom: -1px;
+}
+
+.tab {
+  width: 70px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #bfbfbf;
+  border-bottom: 0;
+  border-right: 0;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  text-align: center;
+  cursor: pointer;
+
+  &:last-child {
+    border-right: 1px solid #bfbfbf;
+  }
+
+  &__day,
+  &__month {
+    border-bottom: 1px dotted #000;
+    display: inline-block;
+  }
+
+  &__number {
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 30px;
+  }
+
+  &__icon {
+    width: 70px;
+  }
+
+  &__temp {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__text {
+    margin-bottom: 0;
+    line-height: 10px;
+    font-size: 15px;
+  }
+
+  &__min-temp,
+  &__max-temp {
+    font-size: 15px;
+    font-weight: 500;
+  }
+}
+
+.info {
+  &__day {
+    padding: 20px 10px;
+    border: 1px solid #bfbfbf;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    width: 616px;
+  }  
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    position: relative;
+    animation: .5s appearance;
+  }
+
+  &__image {
+    position: absolute;
+    height: 85px;
+    left: 0px;
+    top: 20px;
+  }
+
+  &__image-temp {
+    position: absolute;
+    top: 85px;
+    left: 20px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  &__titles {
+    margin-top: 79px;
+    text-align: right;
+    margin-right: 5px;
+
+    p {
+      margin: 0;
+      margin-bottom: 3.5px;
+    }
+  }
+
+  &__column {
+    display: inline-block;
+    text-align: center;
+
+    &:nth-child(odd):not(:last-child) {
+      border-right: 1px solid #bfbfbf;
+    }
+  }
+
+  &__period span {
+    display: inline-block;
+    width: 24.87%;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  &__time {
+    margin-bottom: -5px;
+    background: #F2F2F2;
+  }
+
+  &__icon {
+    width: 50px;
+  }
+
+  &__temp {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: -12px;
+    margin-bottom: 5px;
+  }
+
+  &__pressure,
+  &__wind-speed {
+    background: #F2F2F2;
+    margin-bottom: 5px;
+  }
+
+  &__feelsLike {
+    font-weight: bold;
+    color: rgb(156, 154, 154);
+    margin-bottom: 5px;
+  }
+
+  &__description {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+@keyframes appearance {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

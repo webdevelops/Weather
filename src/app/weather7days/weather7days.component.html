@@ -1,0 +1,72 @@
+<div class="weather">
+  <div class="weather__tabs">
+    <div 
+      *ngFor="let day of days"
+      class="weather__tab tab" 
+      [ngClass]="{active: currentPosition === day}" 
+      (click)="togglePosition(day)"
+    >
+      <div class="tab__day">{{day.weekDay}}</div>
+      <div class="tab__number">{{day.dayNumber}}</div>
+      <div class="tab__month">{{day.month}}</div>
+      <img class="tab__icon" src="{{day.iconUrl}}" alt="weather">
+      <div class="tab__temp">
+        <div>
+          <p class="tab__text">min.</p>
+          <span class="tab__min-temp">{{day.minTemp > 0 ? '+' : ''}}{{day.minTemp}}°</span>
+        </div>
+        <div>
+          <p class="tab__text">max.</p>
+          <span class="tab__max-temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [ngSwitch]="true" class="weather__info info">
+    <ng-container *ngFor="let day of days">
+      <div 
+        class="info__day"  
+        *ngSwitchCase="currentPosition === day"
+      >
+        <div class="info__content">
+          <div class="info__image-wrapper">
+            <img class="info__image" src="{{day.imageUrl}}" alt="img">
+            <div class="info__image-temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</div>
+          </div>
+
+          <div class="info__titles">
+            <p>Temperature, °C</p>
+            <p>Feels like</p>
+            <p>Pressure, hPa</p>
+            <p>Humidity, %</p>
+            <p>Wind, m/s</p>
+          </div>
+
+          <div>
+            <div class="info__period">
+              <span>night</span>
+              <span>morning</span>
+              <span>day</span>
+              <span>evening</span>
+            </div>
+            
+            <div *ngFor="let hour of day.hourly" class="info__column">
+            <!-- <div class="info__column"> -->
+              <div class="info__time">{{hour.time}} : 00</div>
+              <img src="{{hour.iconUrl}}" alt="icon" class="info__icon">
+              <div class="info__temp">{{hour.temp > 0 ? '+' : ''}}{{hour.temp}}°</div>
+              <div class="info__feelsLike">{{hour.feelsLike > 0 ? '+' : ''}}{{hour.feelsLike}}°</div>
+              <div class="info__pressure">{{hour.pressure}}</div>
+              <div class="info__humidity">{{hour.humidity}}</div>
+              <!-- <div class="info__wind-deg">{{hour.windDeg}}</div> -->
+              <div class="info__wind-speed">{{hour.windSpeed}}</div>
+            </div>
+          </div>
+
+          <div class="info__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo officiis quia eveniet dignissimos ratione sequi aut consequuntur facere. Officiis rerum facilis omnis perspiciatis laboriosam dolor placeat libero praesentium, incidunt mollitia.</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
