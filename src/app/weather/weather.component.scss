@@ -1,19 +1,7 @@
 .weather {
   margin: 10px 0 10px;
   min-width: 250px;
-
-  &__form {
-    margin-bottom: 20px;
-  }
-
-  &__btn {
-    background: #1976D2;
-    border: 2px solid #1976D2;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-    color: white;
-    cursor: pointer;
-  }
+  animation: 1s appearance;
 
   &__date {
     color: #eb6e4b;
@@ -62,4 +50,21 @@
 
 .active {
   color: #eb6e4b;
+}
+
+.spinner {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes appearance {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

@@ -38,14 +38,14 @@ export class WeatherService {
             .pipe(
               map((data: any) => {
                 console.log('response by coordinates:', data)
-                return this.transformDailyData(data);
+                return this.transformDailyData(data, city);
               })
             );
         })
       )
   }
 
-  transformDailyData(data: any): any {
+  transformDailyData(data: any, city: string): any {
     const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const iconUrl = 'http://openweathermap.org/img/wn/';
@@ -65,6 +65,7 @@ export class WeatherService {
         weather: day.weather[0].description,
         iconUrl: iconUrl + day.weather[0].icon + '@2x.png',
         imageUrl: imageUrl + idx + '00.jpg',
+        city: city,
         hourly: hourly
       }
     })

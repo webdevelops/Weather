@@ -37,6 +37,10 @@ export class WeatherComponent implements OnInit {
     });
   }
 
+  getWeatherBySity(city: any): void {
+    this.getData(city, 'celsius');
+  }
+ 
   getData(city: string, unit: string): void {
     this.weatherService
       .getWeather(city, unit)
@@ -89,10 +93,5 @@ export class WeatherComponent implements OnInit {
   setMeasurement(unit: string): void {
     this.isCelsius = unit === 'celsius';
     this.getData(this.weatherForm.get('city')?.value, unit);
-  }
-
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    this.getData(this.weatherForm.controls['city'].value, 'celsius');
   }
  }

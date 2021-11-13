@@ -333,7 +333,7 @@
   </div>
 
   <!-- OpenWeather -->
-  <h2>OpenWeather</h2>
+  <h2 *ngIf="isDay">OpenWeather</h2>
   <!-- <p>A scientific yet simple approach to weather forecast:</p> -->
 
   <button class="toggle-btn" (click)="toggleDays()">{{isDay ? '7 Days' : 'Day'}}</button>

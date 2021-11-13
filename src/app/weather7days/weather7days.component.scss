@@ -1,4 +1,11 @@
 .weather {
+  animation: 1s appearance;
+
+  &__search {
+    text-align: center;
+    margin: 20px auto 10px;
+  }
+
   &__tabs {
     display: flex;
   }
@@ -6,6 +13,7 @@
   &__info {
     display: flex;
     background: #fff;
+    border-radius: 10px;
   }
 }
 
@@ -81,6 +89,15 @@
     animation: .5s appearance;
   }
 
+  &__city {
+    font-size: 35px;
+    font-weight: 700;
+    position: absolute;
+    left: 40px;
+    top: 12px;
+    z-index: 2;
+  }
+
   &__image {
     position: absolute;
     height: 85px;
@@ -90,9 +107,9 @@
 
   &__image-temp {
     position: absolute;
-    top: 85px;
-    left: 20px;
-    font-size: 30px;
+    top: 90px;
+    left: 7px;
+    font-size: 38px;
     font-weight: bold;
   }
 
@@ -142,6 +159,9 @@
   &__pressure,
   &__wind-speed {
     background: #F2F2F2;
+  }
+
+  &__pressure {
     margin-bottom: 5px;
   }
 
@@ -155,6 +175,13 @@
     margin-top: 20px;
     text-align: center;
   }
+}
+
+.spinner {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes appearance {

@@ -1,0 +1,9 @@
+<form class="weather__form" [formGroup]="weatherForm" (ngSubmit)="onSubmit($event)">
+  <input 
+    type="text" 
+    formControlName="city"
+    placeholder="Search city"
+    class="weather__input"
+  >
+  <button class="weather__btn">Search</button>
+</form>

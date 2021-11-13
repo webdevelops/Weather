@@ -1,15 +1,7 @@
-<div class="weather">
-  <form class="weather__form" [formGroup]="weatherForm" (ngSubmit)="onSubmit($event)">
-    <input 
-      type="text" 
-      formControlName="city"
-      placeholder="Search city"
-      class="weather__input"
-    >
-    <button class="weather__btn">Search</button>
-  </form>
+<div *ngIf="data; else spinner"  class="weather">
+  <app-search (sendSity)="getWeatherBySity($event)"></app-search>
 
-  <div *ngIf="data" class="weather__info">
+  <div class="weather__info">
     <span class="weather__date">{{currentData | date: 'fullDate'}}</span>
     <h2 class="weather__city-title">{{data.name}}</h2>
 
@@ -54,3 +46,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #spinner>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

@@ -17,8 +17,16 @@ export class Weather7daysComponent implements OnInit {
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    this.getData('London');
+  }
+
+  getWeatherBySity(city: string): void {
+    this.getData(city);
+  }
+
+  getData(city: string): void {
     this.weatherService
-      .getWeather7days('London', 'celsius')
+      .getWeather7days(city, 'celsius')
       .pipe(first())
       .subscribe((result: any) => {
         console.log('result in component:', result);
