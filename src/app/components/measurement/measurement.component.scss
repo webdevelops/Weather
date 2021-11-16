@@ -1,0 +1,15 @@
+.weather {
+  &__measurement {
+    padding: 10px;
+  }
+
+  &__units {
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}
+
+.active {
+  color: #eb6e4b;
+}

@@ -11,13 +11,15 @@ import { WeatherComponent } from './weather/weather.component';
 import { Weather7daysComponent } from './weather7days/weather7days.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './components/search/search.component';
+import { MeasurementComponent } from './components/measurement/measurement.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WeatherComponent,
     Weather7daysComponent,
-    SearchComponent
+    SearchComponent,
+    MeasurementComponent
   ],
   imports: [
     BrowserModule,

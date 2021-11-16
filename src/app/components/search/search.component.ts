@@ -20,10 +20,13 @@ export class SearchComponent implements OnInit {
     this.weatherForm = this.fb.group({
       city: ['London', [Validators.required, Validators.minLength(3)]]
     });
+    console.log('city - 0', this.weatherForm.get('city')?.value)
+
   }
 
   onSubmit(event: Event): void {
     event.preventDefault();
     this.sendSity.emit(this.weatherForm.get('city')?.value);
+    console.log('city - 0', this.weatherForm.get('city')?.value)
   }
 }

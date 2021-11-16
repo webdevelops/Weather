@@ -12,7 +12,8 @@
   }
 
   &__measurement {
-    padding: 10px;
+    display: flex;
+    align-items: baseline;
   }
 
   &__current-temp {
@@ -20,11 +21,6 @@
     margin-right: 20px;
     display: inline-block;
     width: 90px;
-  }
-
-  &__units {
-    font-size: 20px;
-    cursor: pointer;
   }
 
   &__short {
@@ -46,10 +42,6 @@
       width: 120px;
     }
   }
-}
-
-.active {
-  color: #eb6e4b;
 }
 
 .spinner {

@@ -6,34 +6,27 @@
     <h2 class="weather__city-title">{{data.name}}</h2>
 
     <div class="weather__measurement">
-      <span class="weather__current-temp">{{temp}}{{isCelsius ? '°C' : '°F'}}</span>
-      <span class="weather__units">
-        <span 
-          class="weather__celsius" 
-          [ngClass]="{'active': isCelsius}"
-          (click)="setMeasurement('celsius')"
-        >C</span> /
-        <span 
-          class="weather__fahrenheit" 
-          [ngClass]="{'active': !isCelsius}"
-          (click)="setMeasurement('fahrenheit')"
-        >F</span>
-      </span>
+      <span class="weather__current-temp">{{data.temp}}{{isCelsius ? '°C' : '°F'}}</span>
+      
+      <app-measurement 
+        [measurement]="data.measurement"
+        (sendMeasurement)="setMeasurement($event)"
+      ></app-measurement>
     </div>
 
     <div class="weather__short">
-      <b class="weather__feels-like">Feels like {{temp}}{{isCelsius ? '°C' : '°F'}}. </b>
-      <b>{{description}}. </b>
+      <b class="weather__feels-like">Feels like {{data.temp}}{{isCelsius ? '°C' : '°F'}}. </b>
+      <b>{{data.description}}. </b>
     </div>
     
     <div class="weather__detail">
       <div>
         <div>
           <i class="fas fa-location-arrow"></i>
-          {{data.wind.speed}}{{isCelsius ? 'm/s' : 'mph'}} {{windDerection}}
+          {{data.wind.speed}}{{isCelsius ? 'm/s' : 'mph'}} {{data.windDerection}}
         </div>
         <div>Humidity: {{data.main.humidity}}%</div>
-        <div>Visibility: {{visibility}}km</div>
+        <div>Visibility: {{data.visibility}}km</div>
       </div>
 
       <div>
@@ -41,7 +34,7 @@
           <i class="fas fa-weight"></i>
           {{data.main.pressure}}hPa
         </div>
-        <div>Dew point: {{temp_min}}{{isCelsius ? '°C' : '°F'}}</div>
+        <div>Dew point: {{data.temp_min}}{{isCelsius ? '°C' : '°F'}}</div>
       </div>
     </div>
   </div>

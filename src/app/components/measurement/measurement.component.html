@@ -1,0 +1,14 @@
+<div class="weather__measurement">
+  <span class="weather__units">
+    <span 
+      class="weather__celsius" 
+      [ngClass]="{'active': isCelsius}"
+      (click)="setMeasurement('celsius')"
+    >C</span> /
+    <span 
+      class="weather__fahrenheit" 
+      [ngClass]="{'active': !isCelsius}"
+      (click)="setMeasurement('fahrenheit')"
+    >F</span>
+  </span>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { first } from 'rxjs/operators';
 
-import { WeatherService } from '../weather/weather.service';
+import { WeatherService } from '../core/services/weather.service';
 
 @Component({
   selector: 'app-weather7days',
@@ -10,32 +10,38 @@ import { WeatherService } from '../weather/weather.service';
   styleUrls: ['./weather7days.component.scss']
 })
 export class Weather7daysComponent implements OnInit {
-  currentPosition: any;
+  currentPosition = 1;
   days: any;
   hourly: any;
+  city = 'London';
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.getData('London');
+    this.getData(this.city, 'celsius');
   }
 
   getWeatherBySity(city: string): void {
-    this.getData(city);
+    this.city = city; 
+    this.getData(city, 'celsius');
   }
 
-  getData(city: string): void {
+  getData(city: string, unit: string): void {
     this.weatherService
-      .getWeather7days(city, 'celsius')
+      .getWeather7days(city, unit)
       .pipe(first())
       .subscribe((result: any) => {
         console.log('result in component:', result);
         this.days = result;
-        this.currentPosition = result[0];
       });
   }
 
-  togglePosition(position: string): void {
+  togglePosition(position: any): void {
     this.currentPosition = position;
+    // this.getData(position.city);
+  }
+
+  setMeasurement(unit: string): void {
+    this.getData(this.city, unit);
   }
 }

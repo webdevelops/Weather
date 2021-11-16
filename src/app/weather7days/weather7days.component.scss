@@ -101,6 +101,7 @@
   &__image {
     position: absolute;
     height: 85px;
+    width: 100px;
     left: 0px;
     top: 20px;
   }
@@ -175,6 +176,12 @@
     margin-top: 20px;
     text-align: center;
   }
+}
+
+.measurement {
+  position: absolute;
+  left: 27px;
+  bottom: 100px;
 }
 
 .spinner {

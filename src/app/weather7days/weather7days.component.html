@@ -7,8 +7,8 @@
     <div 
       *ngFor="let day of days"
       class="weather__tab tab" 
-      [ngClass]="{active: currentPosition === day}" 
-      (click)="togglePosition(day)"
+      [ngClass]="{active: currentPosition === day.position}" 
+      (click)="togglePosition(day.position)"
     >
       <div class="tab__day">{{day.weekDay}}</div>
       <div class="tab__number">{{day.dayNumber}}</div>
@@ -31,13 +31,19 @@
     <ng-container *ngFor="let day of days">
       <div 
         class="info__day"  
-        *ngSwitchCase="currentPosition === day"
+        *ngSwitchCase="currentPosition === day.position"
       >
         <div class="info__content">
           <div class="info__image-wrapper">
             <div class="info__city">{{day.city}}</div>
             <img class="info__image" src="{{day.imageUrl}}" alt="img">
             <div class="info__image-temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</div>
+
+            <app-measurement
+              class="measurement"
+              [measurement]="day.measurement"
+              (sendMeasurement)="setMeasurement($event)"
+            ></app-measurement>
           </div>
 
           <div class="info__titles">
@@ -50,10 +56,10 @@
 
           <div>
             <div class="info__period">
-              <span>night</span>
-              <span>morning</span>
-              <span>day</span>
-              <span>evening</span>
+              <span>Night</span>
+              <span>Morning</span>
+              <span>Day</span>
+              <span>Evening</span>
             </div>
             
             <div *ngFor="let hour of day.hourly" class="info__column">
