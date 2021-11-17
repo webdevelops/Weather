@@ -332,15 +332,18 @@
 
   </div>
 
-  <!-- OpenWeather -->
   <h2 *ngIf="isDay">OpenWeather</h2>
-  <!-- <p>A scientific yet simple approach to weather forecast:</p> -->
 
   <button class="toggle-btn" (click)="toggleDays()">{{isDay ? '7 Days' : 'Day'}}</button>
 
   <app-weather *ngIf="isDay"></app-weather>
 
-  <app-weather7days *ngIf="!isDay"></app-weather7days>
+  <app-weather7days *ngIf="isDay"></app-weather7days>
+
+  <!------------------ for test -------------------->
+  <app-change-detection *ngIf="!isDay"></app-change-detection>
+
+  <!-- {{Check}} -->
 
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
     <title>Gray Clouds Background</title>

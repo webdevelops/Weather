@@ -12,6 +12,10 @@ import { Weather7daysComponent } from './weather7days/weather7days.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './components/search/search.component';
 import { MeasurementComponent } from './components/measurement/measurement.component';
+import { ChangeDetectionComponent } from './test/change-detection/change-detection.component';
+import { HelloComponent } from './test/change-detection/hello/hello.component';
+import { TooltipComponent } from './test/change-detection/tooltip/tooltip.component';
+import { CounterComponent } from './test/change-detection/counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { MeasurementComponent } from './components/measurement/measurement.compo
     WeatherComponent,
     Weather7daysComponent,
     SearchComponent,
-    MeasurementComponent
+    MeasurementComponent,
+    ChangeDetectionComponent,
+    HelloComponent,
+    TooltipComponent,
+    CounterComponent,
   ],
   imports: [
     BrowserModule,
