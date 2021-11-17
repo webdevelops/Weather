@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { get } from 'lodash';
+
 import { Derection, weekDays, months, iconUrl, imageUrl, weatherUrl, weather7daysUrl, key } from '../data/weather.data';
 
-const get = require('lodash/get');
 
 @Injectable({
   providedIn: 'root'
@@ -91,10 +92,9 @@ export class WeatherService {
   }
 
   transformOneDayData(data: any, unit: string): void {
-    // let description = data.weather[0].description;
-    // const visibility = (data.visibility / 1000).toFixed(1);
     let description = get(data, 'weather[0].description');
     description = description[0].toUpperCase() + description.slice(1);
+    
     const visibility = (get(data, 'visibility') / 1000).toFixed(1);
     const temp = Math.round(get(data, 'main.temp'));
     const temp_min = Math.round(get(data, 'main.temp_min'));
