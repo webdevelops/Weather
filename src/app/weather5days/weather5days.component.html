@@ -35,7 +35,7 @@
       >
         <div class="info__content">
           <div class="info__image-wrapper">
-            <div class="info__city">{{day.city}}</div>
+            <div class="info__city">{{day.city | titlecase}}</div>
             <img class="info__image" src="{{day.iconUrl}}" alt="img">
             <div class="info__image-temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</div>
 
