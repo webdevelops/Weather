@@ -33,7 +33,7 @@ export class WeatherComponent implements OnInit {
 
   initForm(): void {
     this.weatherForm = this.fb.group({
-      city: ['London', [Validators.required, Validators.minLength(3)]]
+      city: ['Rivne', [Validators.required, Validators.minLength(3)]]
     });
   }
 

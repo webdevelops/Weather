@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { get } from 'lodash';
 
-import { Derection, weekDays, months, iconUrl, imageUrl, weatherUrl, weather7daysUrl, key } from '../data/weather.data';
+import { Derection, weekDays, months, iconUrl, imageUrl, weatherUrl, weather7daysUrl, key, accuUrl, iconAccuUrl } from '../data/weather.data';
 
 
 @Injectable({
@@ -14,11 +14,56 @@ import { Derection, weekDays, months, iconUrl, imageUrl, weatherUrl, weather7day
 export class WeatherService {
   constructor(private http: HttpClient) { }
 
+  days: any;
+
   getWeather(city: string, unit: string): Observable<any> {
     const currentUnit = unit === 'celsius' ? 'metric' : 'imperial';
     const url = `${weatherUrl}?q=${city}&units=${currentUnit}&appid=${key}`;
 
     return this.http.get(url);
+  }
+
+  getWeather5days(city: string, unit: string): Observable<any> {
+    const currentUnit = unit === 'celsius' ? 'metric' : 'imperial';
+    
+    return this.http
+      .get(accuUrl)
+      .pipe(
+        map((result: any) => {
+          // console.log('result - 5days', result.DailyForecasts);
+          return result.DailyForecasts.map((day: any, idx: number) => {
+            const iconDay = get(day, 'Day.Icon');
+            const iconNight = get(day, 'Night.Icon');
+            const iconNumber = iconDay < 10 ? '0' + iconDay : iconDay;
+            const iconNumberNight = iconNight < 10 ? '0' + iconNight : iconNight;
+
+              return {
+                city: city,
+                position: 1 + idx,
+                date: new Date(get(day, 'Date')).getDate(),
+                weekDay: weekDays[new Date(get(day, 'Date')).getDay()],
+                month: months[new Date(get(day, 'Date')).getMonth()],
+                iconUrl: iconAccuUrl + iconNumber + '-s.png',
+                iconUrlNight: iconAccuUrl + iconNumberNight + '-s.png',
+                minTemp: Math.round(get(day, 'Temperature.Minimum.Value')),
+                maxTemp: Math.round(get(day, 'Temperature.Maximum.Value')),
+                realFeelMinTemp: Math.round(get(day, 'RealFeelTemperature.Minimum.Value')),
+                realFeelMaxTemp: Math.round(get(day, 'RealFeelTemperature.Maximum.Value')),
+                cloudCoverNight: get(day, 'Night.CloudCover'),
+                cloudCoverDay: get(day, 'Day.CloudCover'),
+                rainProbabilityNight: get(day, 'Night.RainProbability'),
+                rainProbabilityDay: get(day, 'Day.RainProbability'),
+                snowProbabilityNight: get(day, 'Night.SnowProbability'),
+                snowProbabilityDay: get(day, 'Day.SnowProbability'),
+                windNight: get(day, 'Night.Wind.Speed.Value'),
+                windDay: get(day, 'Day.Wind.Speed.Value'),
+                sunRise: new Date(get(day, 'Sun.Rise')),
+                sunSet: new Date(get(day, 'Sun.Set')),
+                sunRiseUrl: iconAccuUrl + '01-s.png'
+              }
+            })
+          })
+        );
   }
 
   getWeather7days(city: string, unit: string): Observable<any> {
@@ -29,13 +74,13 @@ export class WeatherService {
       .pipe(
         switchMap(({coord}) => {
           const url = 
-            `${weather7daysUrl}?lat=${coord.lat}&lon=${coord.lon}&units=${currentUnit}&exclude=${'minutely'}&appid=${key}`;
+            `${weather7daysUrl}?lat=${coord.lat}&lon=${coord.lon}&units=${currentUnit}&exclude='minutely'&appid=${key}`;
 
           return this.http
             .get(url)
             .pipe(
               map((data: any) => {
-                console.log('response by coordinates:', data)
+                // console.log('response by coordinates:', data)
                 return this.transformDailyData(data, city, unit);
               })
             );
@@ -52,7 +97,7 @@ export class WeatherService {
         position: 1 + idx,
         // weekDay: weekDays[new Date(day.dt).getDay()],
         weekDay: weekDays[idx],
-        // dayNumber: new Date(day.dt).getDate(),
+        // dayNumber: new Date(get(day, 'dt')).getDate(),
         dayNumber: 20 + idx,
         measurement: unit,
         month: months[new Date(get(day, 'dt')).getMonth()],
@@ -80,7 +125,6 @@ export class WeatherService {
         return {
           time: time,
           iconUrl: iconUrl + get(hour, 'weather[0].icon').slice(0, -1) + period + '@2x.png',
-          // sinopticIconUrl: imageUrl + p + (idx - 1) + '00.jpg',
           temp: Math.round(get(hour, 'temp')),
           feelsLike: Math.round(get(hour, 'feels_like')),
           pressure: get(hour, 'pressure'),

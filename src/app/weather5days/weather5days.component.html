@@ -1,0 +1,100 @@
+<div class="weather" *ngIf="days; else spinner">
+  <div class="weather__search">
+    <app-search (sendSity)="getWeatherBySity($event)"></app-search>
+  </div>
+
+  <div class="weather__tabs">
+    <div 
+      *ngFor="let day of days"
+      class="weather__tab tab" 
+      [ngClass]="{active: currentPosition === day.position}" 
+      (click)="togglePosition(day.position)"
+    >
+      <div class="tab__day">{{day.weekDay}}</div>
+      <div class="tab__number" [ngClass]="{'day-of-rest': day.weekDay === 'Saturday' || day.weekDay === 'Sunday'}">{{day.date}}</div>
+      <div class="tab__month">{{day.month}}</div>
+      <img class="tab__icon" src="{{day.iconUrl}}" alt="weather">
+      <div class="tab__temp">
+        <div>
+          <p class="tab__text">min.</p>
+          <span class="tab__min-temp">{{day.minTemp > 0 ? '+' : ''}}{{day.minTemp}}°</span>
+        </div>
+        <div>
+          <p class="tab__text">max.</p>
+          <span class="tab__max-temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [ngSwitch]="true" class="weather__info info">
+    <ng-container *ngFor="let day of days">
+      <div 
+        class="info__day"  
+        *ngSwitchCase="currentPosition === day.position"
+      >
+        <div class="info__content">
+          <div class="info__image-wrapper">
+            <div class="info__city">{{day.city}}</div>
+            <img class="info__image" src="{{day.iconUrl}}" alt="img">
+            <div class="info__image-temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</div>
+
+            <!-- <app-measurement
+              class="measurement"
+              [measurement]="day.measurement"
+              (sendMeasurement)="setMeasurement($event)"
+            ></app-measurement> -->
+
+            <img class="info__image-sun" src="{{day.sunRiseUrl}}">
+            <div class="info__sun">
+              <span class="info__sun-rise">Rise <b>{{day.sunRise | date:'HH:mm'}}</b></span>
+              <span class="info__sun-set">Set <b>{{day.sunSet | date:'HH:mm'}}</b></span>
+            </div>
+          </div>
+
+          <div class="info__titles">
+            <p>Temperature, °C</p>
+            <p>Feels like</p>
+            <p>CloudCover, %</p>
+            <p>Rain probability, %</p>
+            <p>Snow Probability, %</p>
+            <p>Wind, km/h</p>
+          </div>
+
+          <div class="info__data">
+            <div class="info__period">
+              <span>Night</span>
+              <span>Day</span>
+            </div>
+
+            <div class="info__detail">
+              <span><img class="info__icon" src="{{day.iconUrlNight}}" alt="weather"></span>
+              <span><img class="info__icon" src="{{day.iconUrl}}" alt="weather"></span>
+
+              <span class="info__temp">{{day.minTemp > 0 ? '+' : ''}}{{day.minTemp}}°</span>
+              <span class="info__temp">{{day.maxTemp > 0 ? '+' : ''}}{{day.maxTemp}}°</span>
+              <span class="info__feelsLike">{{day.realFeelMinTemp > 0 ? '+' : ''}}{{day.realFeelMinTemp}}°</span>
+              <span class="info__feelsLike">{{day.realFeelMaxTemp > 0 ? '+' : ''}}{{day.realFeelMaxTemp}}°</span>
+              <span class="info__cloud">{{day.cloudCoverNight}}</span>
+              <span class="info__cloud">{{day.cloudCoverDay}}</span>
+              <span class="info__rain">{{day.rainProbabilityNight}}</span>
+              <span class="info__rain">{{day.rainProbabilityDay}}</span>
+              <span class="info__snow">{{day.snowProbabilityNight}}</span>
+              <span class="info__snow">{{day.snowProbabilityDay}}</span>
+              <span class="info__wind">{{day.windNight}}</span>
+              <span class="info__wind">{{day.windDay}}</span>
+            </div>
+          </div>
+
+          <div class="info__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo officiis quia eveniet dignissimos ratione sequi aut consequuntur facere.</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #spinner>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

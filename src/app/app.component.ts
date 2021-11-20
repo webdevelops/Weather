@@ -8,8 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'openWeather';
   isDay = false;
-
-  toggleDays(): void {
-    this.isDay = !this.isDay;
-  }
+  is5Days = true;
 }

@@ -336,11 +336,29 @@
   <h2 *ngIf="isDay">OpenWeather</h2>
   <!-- <p>A scientific yet simple approach to weather forecast:</p> -->
 
-  <button class="toggle-btn" (click)="toggleDays()">{{isDay ? '7 Days' : 'Day'}}</button>
+  <div class="btn-group">
+    <button 
+      class="btn-toggle" 
+      (click)="isDay = !isDay"
+    >
+      {{isDay ? '7 Days' : 'Day'}}
+    </button>
+
+    <button 
+      class="btn-toggle" 
+      (click)="is5Days = !is5Days"
+      [disabled]="isDay"
+      [ngClass]="{disabled: isDay}"
+    >
+      {{is5Days ? '7 Days' : '5 Days'}}
+    </button>
+  </div>
 
   <app-weather *ngIf="isDay"></app-weather>
 
-  <app-weather7days *ngIf="!isDay"></app-weather7days>
+  <app-weather5days *ngIf="is5Days && !isDay"></app-weather5days>
+
+  <app-weather7days *ngIf="!isDay && !is5Days"></app-weather7days>
 
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
     <title>Gray Clouds Background</title>

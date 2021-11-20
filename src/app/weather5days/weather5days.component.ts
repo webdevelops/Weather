@@ -5,15 +5,16 @@ import { first } from 'rxjs/operators';
 import { WeatherService } from '../core/services/weather.service';
 
 @Component({
-  selector: 'app-weather7days',
-  templateUrl: './weather7days.component.html',
-  styleUrls: ['./weather7days.component.scss']
+  selector: 'app-weather5days',
+  templateUrl: './weather5days.component.html',
+  styleUrls: ['./weather5days.component.scss']
 })
-export class Weather7daysComponent implements OnInit {
+export class Weather5daysComponent implements OnInit {
   currentPosition = 1;
   days: any;
   hourly: any;
   city = 'Rivne';
+  isDayOfRest = false;
 
   constructor(private weatherService: WeatherService) { }
 
@@ -28,17 +29,17 @@ export class Weather7daysComponent implements OnInit {
 
   getData(city: string, unit: string): void {
     this.weatherService
-      .getWeather7days(city, unit)
+      .getWeather5days(city, unit)
       .pipe(first())
       .subscribe((result: any) => {
         // console.log('result in component:', result);
         this.days = result;
+        this.isDayOfRest = result.weekDay === 'Saturday' || result.weekDay === 'Sunday';
       });
   }
 
   togglePosition(position: any): void {
     this.currentPosition = position;
-    // this.getData(position.city);
   }
 
   setMeasurement(unit: string): void {
