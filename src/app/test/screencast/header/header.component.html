@@ -1,0 +1,33 @@
+<!-- <p [class]="myClass"> -->
+<p [style.width.px]="100" [style.color]="myColor">
+  Hello, {{user?.name}}!
+</p>
+
+<!-- <p (click)="changeColor('blue')" [style.color]="myColor">
+  header works!
+</p> -->
+<!-- <input type="text" (input)="inputColor($event)" (keydown.control.shift.enter)="setColor($event)"> -->
+
+<input type="text" #colorElement>
+<button (click)="changeColor(colorElement.value)">Change Color</button>
+
+<!-- <app-user-card [user]="user"></app-user-card> -->
+
+<div *ngFor="let delay of [1, 2, 3]">
+  <app-item appColory *appDelay="delay">
+    <h1>Welcome ng-content {{user.name}}</h1>
+  </app-item>
+</div>
+
+<!-- <ng-template [appDelay]="delay">
+  <app-item></app-item>
+</ng-template> -->
+
+
+<br>
+
+<div appColory>Custome Directives</div>
+
+<br>
+
+<div *appDelay="3">Structural Directive</div>
