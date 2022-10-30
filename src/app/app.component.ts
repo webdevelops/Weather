@@ -11,4 +11,5 @@ export class AppComponent {
   is5Days = true;
 
   // update_1
+  // update_2 from test_2
 }
