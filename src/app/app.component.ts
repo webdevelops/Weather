@@ -13,4 +13,6 @@ export class AppComponent {
   is5Days = true;
 
   // update_1 continue from test_1
+  // update_2 from test_2 
+           // part_2
 }
