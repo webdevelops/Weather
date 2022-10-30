@@ -12,5 +12,4 @@ export class AppComponent {
 
   // update_1
   // update_2 from test_2 
-           // part_2
-}
+           // part_2 and piece_2
